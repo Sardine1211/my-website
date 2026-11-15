@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f5f1">
+  <meta name="description" content="一位产业项目实践者的个人主页，记录矿产资源、新材料与项目落地。">
+  <title>个人主页 · 项目实践与产业协作</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17251f;
+      --muted: #738078;
+      --line: #e7ebe5;
+      --paper: #fff;
+      --canvas: #f3f5f1;
+      --green: #244c3b;
+      --lime: #d7f26c;
+      --shadow: 0 18px 48px rgba(28, 48, 37, .07);
+      font-family: Inter, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .topbar {
+      height: 72px; position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 84px); background: rgba(255,255,255,.9);
+      border-bottom: 1px solid rgba(231,235,229,.8); backdrop-filter: blur(18px);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 15px; font-weight: 750; letter-spacing: -.03em; }
+    .brand-mark {
+      display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px;
+      color: #f5f7ef; background: var(--green); font: 700 15px Georgia, serif;
+    }
+    .top-links { display: flex; gap: 32px; align-items: center; color: #637068; font-size: 13px; }
+    .top-links a:hover, .side-link:hover { color: var(--green); }
+    .top-cta, .button-dark {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: 0; border-radius: 999px; background: var(--green); color: white;
+      padding: 11px 18px; font-size: 12px; font-weight: 650; cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .top-cta:hover, .button-dark:hover { transform: translateY(-2px); background: #183b2c; }
+
+    .page { width: min(1180px, calc(100% - 40px)); margin: 34px auto 72px; }
+    .profile-shell { overflow: hidden; border: 1px solid var(--line); border-radius: 24px; background: var(--paper); box-shadow: var(--shadow); }
+    .cover {
+      position: relative; min-height: 330px; overflow: hidden; background: #213d32;
+      isolation: isolate;
+    }
+    .cover::after {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(90deg, rgba(17,35,27,.9) 0%, rgba(17,35,27,.62) 42%, rgba(17,35,27,.05) 100%);
+    }
+    .cover-art { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; }
+    .cover-copy { width: 62%; max-width: 760px; padding: 62px 7.5%; color: #fff; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; color: #d8f178; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 23px; height: 1px; background: currentColor; }
+    h1 { max-width: 620px; margin: 22px 0 15px; font-size: clamp(36px, 4.4vw, 52px); line-height: 1.13; letter-spacing: -.055em; font-weight: 650; }
+    h1 span { display: block; }
+    .cover-copy p { margin: 0; color: rgba(255,255,255,.77); font-size: 14px; line-height: 1.9; }
+    .cover-note { position: absolute; right: 28px; bottom: 24px; color: rgba(255,255,255,.72); font-size: 10px; letter-spacing: .12em; }
+
+    .identity {
+      position: relative; display: flex; align-items: center; gap: 21px;
+      min-height: 112px; padding: 22px 5%; border-bottom: 1px solid var(--line);
+    }
+    .avatar {
+      width: 76px; height: 76px; flex: 0 0 76px; display: grid; place-items: center;
+      margin-top: -54px; border: 5px solid white; border-radius: 24px;
+      color: #eaf2d5; background: linear-gradient(145deg, #567565, #1d3b2d);
+      font: 500 27px Georgia, serif; box-shadow: 0 8px 20px rgba(20,43,31,.16);
+    }
+    .identity-main { flex: 1; }
+    .identity-main h2 { margin: 0 0 6px; font-size: 20px; letter-spacing: -.035em; }
+    .identity-main p { margin: 0; color: var(--muted); font-size: 12px; }
+    .identity-meta { display: flex; align-items: center; gap: 18px; color: #829087; font-size: 11px; }
+    .identity-meta span { display: flex; align-items: center; gap: 6px; }
+    .identity-meta svg { width: 14px; height: 14px; }
+    .identity .button-dark { margin-left: 12px; }
+    .tabbar { display: flex; gap: 31px; padding: 0 5%; }
+    .tabbar a { position: relative; padding: 17px 1px; color: #7b877f; font-size: 12px; }
+    .tabbar a.active { color: var(--green); font-weight: 700; }
+    .tabbar a.active::after { position: absolute; content: ""; height: 2px; bottom: 0; left: 0; right: 0; background: var(--green); }
+
+    .layout { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 22px; margin-top: 22px; align-items: start; }
+    .sidebar { display: grid; gap: 15px; }
+    .card { border: 1px solid var(--line); border-radius: 18px; background: var(--paper); box-shadow: 0 5px 20px rgba(28,48,37,.025); }
+    .card-pad { padding: 22px; }
+    .card-title { margin: 0 0 15px; font-size: 14px; letter-spacing: -.025em; }
+    .about-copy { margin: 0; color: #66736a; font-size: 12px; line-height: 1.9; }
+    .about-list { display: grid; gap: 15px; margin: 19px 0 0; }
+    .about-row { display: flex; gap: 11px; align-items: flex-start; color: #69766d; font-size: 11px; line-height: 1.65; }
+    .about-row svg { width: 16px; height: 16px; flex: 0 0 16px; margin-top: 1px; color: #517360; }
+    .about-row strong { display: block; color: var(--ink); font-size: 11px; font-weight: 650; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip { padding: 7px 10px; border-radius: 999px; background: #f2f5ef; color: #526b5b; font-size: 10px; }
+    .side-nav { display: grid; gap: 3px; }
+    .side-link { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-radius: 9px; color: #718077; font-size: 11px; }
+    .side-link svg { width: 15px; height: 15px; }
+    .side-link.current { background: #f1f5ef; color: var(--green); font-weight: 650; }
+
+    .feed { display: grid; gap: 15px; }
+    .feed-heading { display: flex; align-items: end; justify-content: space-between; padding: 4px 3px 2px; }
+    .feed-heading h2 { margin: 0 0 4px; font-size: 20px; letter-spacing: -.045em; }
+    .feed-heading p { margin: 0; color: var(--muted); font-size: 11px; }
+    .sort-label { color: #7b877f; font-size: 10px; }
+    .post { padding: 22px 24px 18px; }
+    .post-head { display: flex; align-items: center; gap: 11px; }
+    .mini-avatar { display: grid; place-items: center; width: 37px; height: 37px; border-radius: 13px; background: #e8eee5; color: var(--green); font: 600 15px Georgia, serif; }
+    .post-author { font-size: 11px; font-weight: 700; }
+    .post-date { margin-top: 4px; color: #929b95; font-size: 10px; }
+    .post-menu { margin-left: auto; color: #9aa39c; font-size: 20px; letter-spacing: 2px; }
+    .post h3 { margin: 18px 0 8px; font-size: 17px; line-height: 1.5; letter-spacing: -.035em; }
+    .post p { margin: 0; color: #647168; font-size: 12px; line-height: 1.9; }
+    .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .post-tags span { color: #6d8272; font-size: 10px; }
+    .post-tags span::before { content: "#"; color: #95a68c; }
+    .post-visual {
+      position: relative; display: flex; align-items: end; min-height: 176px; overflow: hidden;
+      margin-top: 16px; padding: 18px; border-radius: 13px;
+      background: linear-gradient(135deg, #dfe9dc, #a9c0ad 58%, #698675);
+    }
+    .post-visual::before, .post-visual::after { content: ""; position: absolute; border-radius: 50%; filter: blur(1px); }
+    .post-visual::before { width: 220px; height: 220px; right: 12%; top: -105px; background: rgba(248,246,224,.7); }
+    .post-visual::after { width: 500px; height: 150px; right: -6%; bottom: -76px; background: #365b48; box-shadow: -160px -20px 0 #4f725b, -330px -3px 0 #73927a; }
+    .visual-label { position: relative; z-index: 1; max-width: 240px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.55); border-radius: 10px; background: rgba(255,255,255,.64); backdrop-filter: blur(8px); }
+    .visual-label small { display: block; color: #607369; font-size: 9px; letter-spacing: .12em; }
+    .visual-label strong { display: block; margin-top: 5px; color: #234535; font-size: 13px; }
+    .post-actions { display: flex; gap: 23px; padding-top: 14px; margin-top: 16px; border-top: 1px solid #edf0ec; color: #859087; font-size: 10px; }
+    .post-actions span { display: flex; gap: 6px; align-items: center; }
+    .post-actions svg { width: 14px; height: 14px; }
+    .notice { padding: 15px 17px; border: 1px solid #e8eadb; border-radius: 14px; background: #fafbf6; color: #778276; font-size: 10px; line-height: 1.8; }
+    .notice strong { color: #495d4c; }
+    .contact-card { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 24px; color: white; background: var(--green); }
+    .contact-card h3 { margin: 0 0 6px; font-size: 16px; }
+    .contact-card p { margin: 0; color: rgba(255,255,255,.7); font-size: 10px; line-height: 1.7; }
+    .contact-card a { flex: 0 0 auto; padding: 10px 13px; border-radius: 999px; color: #183b2c; background: var(--lime); font-size: 10px; font-weight: 700; }
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 26px 4px 0; color: #929b95; font-size: 10px; }
+    footer span:last-child { text-align: right; }
+
+    @media (max-width: 760px) {
+      .topbar { height: 62px; padding: 0 18px; }
+      .top-links { display: none; }
+      .page { width: min(100% - 22px, 600px); margin: 14px auto 40px; }
+      .profile-shell { border-radius: 18px; }
+      .cover { min-height: 300px; }
+      .cover-copy { padding: 52px 25px; }
+      .cover-copy { width: 100%; }
+      h1 { font-size: 39px; }
+      .cover-copy p { max-width: 340px; }
+      .cover-note { right: 16px; bottom: 15px; font-size: 8px; }
+      .identity { gap: 13px; padding: 17px 18px; min-height: 100px; flex-wrap: wrap; }
+      .avatar { width: 64px; height: 64px; flex-basis: 64px; margin-top: -43px; border-radius: 20px; }
+      .identity-main h2 { font-size: 17px; }
+      .identity-main p { max-width: 205px; line-height: 1.6; }
+      .identity-meta { display: none; }
+      .identity .button-dark { margin-left: auto; padding: 10px 13px; }
+      .tabbar { gap: 23px; padding: 0 19px; overflow-x: auto; }
+      .tabbar a { white-space: nowrap; }
+      .layout { grid-template-columns: 1fr; gap: 15px; margin-top: 15px; }
+      .sidebar { grid-template-columns: 1fr; }
+      .side-nav-card { display: none; }
+      .post { padding: 19px; }
+      .post h3 { font-size: 15px; }
+      .post-visual { min-height: 150px; }
+      footer { flex-direction: column; }
+      footer span:last-child { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="返回首页">
+      <span class="brand-mark">D</span><span>FIELD NOTES<span style="color:#91a06d"> / 个人主页</span></span>
+    </a>
+    <nav class="top-links" aria-label="主导航">
+      <a href="#about">关于</a><a href="#projects">项目动态</a><a href="#focus">关注领域</a><a href="#contact">联系</a>
+    </nav>
+    <a class="top-cta" href="#contact">建立连接 <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main class="page" id="top">
+    <section class="profile-shell" aria-label="个人主页">
+      <div class="cover">
+        <svg class="cover-art" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="群山、矿区与产业园区的原创矢量插画">
+          <defs>
+            <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#b9c9a7"/><stop offset="1" stop-color="#6d8b70"/></linearGradient>
+            <linearGradient id="ridge" x2="0" y2="1"><stop stop-color="#66816a"/><stop offset="1" stop-color="#304d3c"/></linearGradient>
+            <linearGradient id="quarry" x2="0" y2="1"><stop stop-color="#c9c9a9"/><stop offset="1" stop-color="#89957d"/></linearGradient>
+          </defs>
+          <rect width="1440" height="420" fill="url(#sky)"/>
+          <circle cx="1124" cy="91" r="48" fill="#e4e8c5" opacity=".7"/>
+          <path d="M0 246 160 135l135 88 165-151 165 166 185-133 152 113 178-121 300 173v150H0Z" fill="#80947a"/>
+          <path d="m0 294 173-85 143 69 211-124 171 117 201-98 158 88 188-103 195 102v160H0Z" fill="url(#ridge)"/>
+          <path d="M750 420 843 281l74-34 73 28 83-58 79 39 95-14 193 84v94Z" fill="url(#quarry)"/>
+          <path d="m826 362 68-75 80 17 58-37 78 44 70-5 87 40" fill="none" stroke="#edf0d7" stroke-width="10" opacity=".55"/>
+          <path d="m893 405 62-62 89 11 57-28 68 33 91-2" fill="none" stroke="#657c67" stroke-width="8" opacity=".62"/>
+          <g fill="#dce2ce">
+            <path d="M1032 244h71v50h-71z"/><path d="M1018 243l48-29 56 29z"/>
+            <path d="M1120 258h90v44h-90z"/><path d="m1111 258 54-26 54 26z"/>
+            <path d="M1228 245h56v49h-56z"/><path d="m1219 245 37-20 38 20z"/>
+          </g>
+          <g stroke="#e4e9db" stroke-width="5" opacity=".55">
+            <path d="M1012 312h318"/><path d="M1097 224v-34h67v34"/><path d="M1164 190v-22"/>
+          </g>
+          <path d="M0 371q132-62 255 4t240 2 240-6 240 8 240-4 225 13v32H0Z" fill="#1c392b" opacity=".8"/>
+          <g fill="#1d3829">
+            <path d="m124 360 18-45 18 45h-12v24h-12v-24z"/><path d="m195 374 14-35 14 35h-9v20h-10v-20z"/>
+            <path d="m521 371 19-47 19 47h-13v25h-12v-25z"/><path d="m608 384 15-36 15 36h-10v19h-10v-19z"/>
+            <path d="m1345 371 18-43 18 43h-12v24h-12v-24z"/><path d="m1390 384 14-34 14 34h-9v19h-10v-19z"/>
+          </g>
+        </svg>
+        <div class="cover-copy">
+          <div class="eyebrow">产业实践 · 持续更新</div>
+          <h1><span>把资源，</span><span>一步步变成项目。</span></h1>
+          <p>关注矿产资源与新材料产业的协同落地，记录从项目研究、资源对接到建设推进的真实过程。</p>
+        </div>
+        <div class="cover-note">FIELD NOTES — 2026</div>
+      </div>
+      <div class="identity">
+        <div class="avatar" aria-hidden="true">D.</div>
+        <div class="identity-main">
+          <h2>项目实践者</h2>
+          <p>产业项目协同 · 资源整合 · 新材料方向</p>
+        </div>
+        <div class="identity-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20V8l8-4 8 4v12H4Z"/><path d="M9 20v-6h6v6"/></svg>产业项目</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>开放合作</span>
+        </div>
+        <a class="button-dark" href="#contact">联系我 <span aria-hidden="true">↗</span></a>
+      </div>
+      <nav class="tabbar" aria-label="个人主页分区">
+        <a class="active" href="#projects">动态</a><a href="#about">简介</a><a href="#focus">关注领域</a><a href="#contact">合作联系</a>
+      </nav>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section class="card card-pad" id="about">
+          <h2 class="card-title">关于我</h2>
+          <p class="about-copy">近半年的资料呈现出两条实践主线：一条围绕矿业与新材料项目推进，另一条关注产品资料、市场拓展与跨境业务协同。也在持续学习 AI 工具，希望把复杂的事情拆清楚，让项目向前走。</p>
+          <div class="about-list">
+            <div class="about-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20V8l8-4 8 4v12H4Z"/><path d="M9 20v-6h6v6M8 9h.01M12 9h.01M16 9h.01"/></svg><div><strong>产业方向</strong>矿产资源 · 硅基新材料</div></div>
+            <div class="about-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V5m0 14h16M7 15l4-4 3 2 6-7"/><path d="M16 6h4v4"/></svg><div><strong>工作方式</strong>研究梳理 · 资源协同 · 推进落地</div></div>
+            <div class="about-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg><div><strong>近期探索</strong>AI 工具与工作流提效</div></div>
+          </div>
+        </section>
+        <section class="card card-pad" id="focus">
+          <h2 class="card-title">关注领域</h2>
+          <div class="chips"><span class="chip">矿产资源开发</span><span class="chip">硅基新材料</span><span class="chip">项目协同</span><span class="chip">跨境市场</span><span class="chip">产品内容</span><span class="chip">AI 办公</span></div>
+        </section>
+        <section class="card card-pad side-nav-card">
+          <h2 class="card-title">主页导航</h2>
+          <nav class="side-nav" aria-label="侧边导航">
+            <a class="side-link current" href="#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>项目动态</a>
+            <a class="side-link" href="#about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3"/><path d="M5 20c.5-4 3-6 7-6s6.5 2 7 6"/></svg>个人简介</a>
+            <a class="side-link" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>合作联系</a>
+          </nav>
+        </section>
+      </aside>
+
+      <section class="feed" id="projects">
+        <div class="feed-heading">
+          <div><h2>项目动态</h2><p>近半年的工作脉络 · 2026.05 — 2026.11</p></div>
+          <span class="sort-label">精选记录　⌄</span>
+        </div>
+        <div class="notice"><strong>展示说明：</strong>以下内容根据本机近半年文件的名称、类型与时间整理为公开展示草稿；不含合同、财务、个人身份或未获授权的项目细节。发布前建议确认项目名称与公开范围。</div>
+
+        <article class="card post">
+          <div class="post-head"><div class="mini-avatar">D.</div><div><div class="post-author">项目实践者</div><div class="post-date">2026 年 11 月 · 项目研究与融资协同</div></div><span class="post-menu">···</span></div>
+          <h3>把项目材料梳理清楚，是协作真正开始的地方。</h3>
+          <p>近期围绕矿产资源项目持续整理可研、评审、规划与融资相关资料，逐步形成从项目概况、资源条件到建设路径的清晰表达，也在探索用 AI 工具提升资料归纳与日常工作效率。</p>
+          <div class="post-visual"><div class="visual-label"><small>PROJECT JOURNAL · 01</small><strong>资源研究 → 项目表达 → 协同推进</strong></div></div>
+          <div class="post-tags"><span>项目研究</span><span>融资协同</span><span>AI 工作流</span></div>
+          <div class="post-actions"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6a7.5 7.5 0 1 1 17-3.5Z"/></svg>项目记录</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M3 12h18"/></svg>持续更新</span></div>
+        </article>
+
+        <article class="card post">
+          <div class="post-head"><div class="mini-avatar">D.</div><div><div class="post-author">项目实践者</div><div class="post-date">2026 年 8 月 · 项目建设与合作沟通</div></div><span class="post-menu">···</span></div>
+          <h3>从资源条件到建设方案，让产业构想有据可依。</h3>
+          <p>围绕新材料项目建设与矿山开发，参与整理建设情况、合作协议及技术研究材料；在不同参与方之间对齐信息，把关键事项转化成可以继续讨论和推进的下一步。</p>
+          <div class="post-tags"><span>建设推进</span><span>技术研究</span><span>产业协作</span></div>
+          <div class="post-actions"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5m0 14h16M7 15l4-4 3 2 6-7"/></svg>项目实践</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>2026.08</span></div>
+        </article>
+
+        <article class="card post">
+          <div class="post-head"><div class="mini-avatar">D.</div><div><div class="post-author">项目实践者</div><div class="post-date">2026 年 5—9 月 · 产品内容与海外市场</div></div><span class="post-menu">···</span></div>
+          <h3>好的市场拓展，先从把产品讲明白开始。</h3>
+          <p>另一条工作线聚焦产品资料整理与海外市场准备：从产品知识、报价和推广内容，到泰国市场分工、竞品信息与售后资料，逐步搭建更完整的沟通基础。</p>
+          <div class="post-tags"><span>产品资料</span><span>泰国市场</span><span>销售支持</span></div>
+          <div class="post-actions"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5m0 14h16M7 15l4-4 3 2 6-7"/></svg>市场实践</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>2026.05—09</span></div>
+        </article>
+
+        <article class="card post">
+          <div class="post-head"><div class="mini-avatar">D.</div><div><div class="post-author">项目实践者</div><div class="post-date">2026 年 5—7 月 · 基础研究与运营支持</div></div><span class="post-menu">···</span></div>
+          <h3>扎实的基础工作，让复杂项目保持节奏。</h3>
+          <p>持续跟进项目基础资料、采购合作信息、月度财务与运营文件，配合推进村级项目资金情况梳理及资源合作材料，为后续决策和外部沟通做好准备。</p>
+          <div class="post-tags"><span>基础资料</span><span>运营支持</span><span>合作对接</span></div>
+          <div class="post-actions"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>工作脉络</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>2026.05—07</span></div>
+        </article>
+
+        <section class="card contact-card" id="contact">
+          <div><h3>正在寻找靠谱的合作伙伴？</h3><p>欢迎围绕产业项目、资源协同与工作流提效交流。<br>联系方式可在正式发布前补充。</p></div>
+          <a href="#about">补充联系信息 ↗</a>
+        </section>
+      </section>
+    </div>
+    <footer><span>© 2026 · FIELD NOTES</span><span>个人展示页面 · 内容与公开范围可按需调整</span></footer>
+  </main>
+</body>
+</html>
